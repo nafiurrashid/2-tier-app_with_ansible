@@ -1,0 +1,43 @@
+---
+# tasks file for nginx
+
+    - name: Installing Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Allow incoming connections on port 80
+      ufw:
+        rule: allow
+        port: 80
+
+    - name: Copy Nginx sites-enabled file
+      template:
+        src: default
+        dest: /etc/nginx/sites-enabled/default
+        owner: root
+        group: root
+        mode: "0644"
+      notify:
+        - Restart Nginx
+
+    - name: Copy Nginx sites-available file
+      template:
+        src: default
+        dest: /etc/nginx/sites-available/default
+        owner: root
+        group: root
+        mode: "0644"
+      notify:
+        - Restart Nginx
+
+
+
+
+
+
+    - name: Copy web files to /var/www/html
+      copy:
+        src: wave_cafe
+        dest: /var/www/htm/wave_cafe
+        directory_mode: 0766

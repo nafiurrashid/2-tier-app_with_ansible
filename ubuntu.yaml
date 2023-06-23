@@ -1,0 +1,9 @@
+---
+- name: Install and configure nginx, php and database
+  hosts: 192.168.56.108
+  become: true
+  roles:
+        - php
+        - mysql
+        - nginx
+        
